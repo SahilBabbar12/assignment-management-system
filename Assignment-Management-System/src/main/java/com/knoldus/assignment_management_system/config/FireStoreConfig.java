@@ -10,11 +10,20 @@ import org.springframework.context.annotation.Configuration;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+/**
+ * Configuration class for Firestore.
+ */
 @Configuration
 public class FireStoreConfig {
-
     @Value("${google.application.credentials}")
     private String credentialsLocation;
+
+    /**
+     * Creates a Firestore instance using the specified Google Cloud service account credentials.
+     *
+     * @return Firestore instance
+     * @throws IOException if an error occurs while reading the credentials file
+     */
     @Bean
     public Firestore firestore() throws IOException {
         FileInputStream serviceAccount = new FileInputStream(credentialsLocation);

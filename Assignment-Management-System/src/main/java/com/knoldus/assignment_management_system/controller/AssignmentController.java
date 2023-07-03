@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Controller class for handling assignment-related operations.
+ */
 @RestController
 public class AssignmentController {
 
@@ -19,8 +22,15 @@ public class AssignmentController {
         this.assignmentService = assignmentService;
     }
 
+    /**
+     * Adds a new assignment.
+     *
+     * @param assignment the assignment to be added
+     * @throws ExecutionException   if an error occurs during execution
+     * @throws InterruptedException if the execution is interrupted
+     */
     @PostMapping("/adminfirestore")
-    public void addAssignment(@RequestBody Assignment assignment) throws ExecutionException, InterruptedException{
-       assignmentService .createUser(assignment);
+    public void addAssignment(@RequestBody Assignment assignment) throws ExecutionException, InterruptedException {
+        assignmentService.createUser(assignment);
     }
 }

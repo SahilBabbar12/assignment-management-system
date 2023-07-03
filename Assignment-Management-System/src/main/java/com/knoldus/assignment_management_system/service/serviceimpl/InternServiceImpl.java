@@ -12,44 +12,73 @@ import java.util.List;
 
 @Service
 public class InternServiceImpl implements InternService {
+
     @Autowired
     InternRepository internRepository;
+
+    /**
+     * Retrieves all the interns.
+     *
+     * @return a list of all the interns
+     */
     @Override
     public List<Intern> getInterns() {
-        return (internRepository.findAll());
+        return internRepository.findAll();
     }
 
+    /**
+     * Adds a new intern.
+     *
+     * @param intern the intern to be added
+     * @return the added intern
+     * @throws EmptyInputException if the input fields are empty
+     */
     @Override
     public Intern addNewIntern(Intern intern) {
-        if(intern.getFirst_name().isEmpty())
+        if (intern.getFirstName().isEmpty())
             throw new EmptyInputException("Input fields are empty");
         else
             return internRepository.save(intern);
-
     }
 
+    /**
+     * Retrieves the details of an intern by ID.
+     *
+     * @param id the ID of the intern
+     * @return the intern details
+     * @throws NoSuchElementException if no intern is found with the given ID
+     */
     @Override
     public Intern getInternDetail(Long id) {
-        return internRepository.findById(id).orElseThrow(()-> new NoSuchElementException("No Intern Found"));
+        return internRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No Intern Found"));
     }
 
+    /**
+     * Updates an intern.
+     *
+     * @param intern the intern to be updated
+     * @return the updated intern
+     */
     @Override
     public Intern updateIntern(Intern intern) {
-        if(internRepository.findById(intern.getId()).isPresent())
+        if (internRepository.findById(intern.getId()).isPresent())
             return internRepository.save(intern);
         else
             return null;
     }
 
+    /**
+     * Deletes an intern by ID.
+     *
+     * @param id the ID of the intern to be deleted
+     * @return a status message indicating the result of the deletion
+     */
     @Override
     public String deleteIntern(Long id) {
-        if(internRepository.findById(id).isPresent())
-        {
+        if (internRepository.findById(id).isPresent()) {
             internRepository.deleteById(id);
-            return "intern id"+id+"successfully";
-        }
-        else
-            return "intern not found";
-
+            return "Intern with ID " + id + " deleted successfully";
+        } else
+            return "Intern not found";
     }
 }

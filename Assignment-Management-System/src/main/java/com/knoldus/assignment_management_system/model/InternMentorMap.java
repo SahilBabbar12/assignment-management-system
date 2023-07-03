@@ -17,7 +17,7 @@ public class InternMentorMap {
     private Long intern;
     @Id
     private Long mentor;
-    private CurrentDateTimeProvider modified_date;
-    private CurrentDateTimeProvider created_date;
+    private CurrentDateTimeProvider modifiedDate;
+    private CurrentDateTimeProvider createdDate;
 
 }

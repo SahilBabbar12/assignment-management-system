@@ -5,7 +5,6 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.auditing.CurrentDateTimeProvider;
 
 import java.time.LocalDateTime;
 
@@ -18,12 +17,12 @@ public class Mentor {
     @Id
     private Long mentorId;
     @Column(name = "emp_id")
-    private String emp_id;
+    private String empId;
     @Column(name="competency_name")
-    private String competency_name;
+    private String competencyName;
     @Column(name="modified_date")
-    private LocalDateTime modified_date= LocalDateTime.now();
+    private LocalDateTime modifiedDate= LocalDateTime.now();
     @Column(name = "created_date")
-    private LocalDateTime created_date= LocalDateTime.now();
+    private LocalDateTime createdDate= LocalDateTime.now();
 
 }

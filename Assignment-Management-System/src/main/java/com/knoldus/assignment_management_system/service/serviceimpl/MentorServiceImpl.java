@@ -38,7 +38,7 @@ public class MentorServiceImpl implements MentorService {
 
     @Override
     public Mentor updateMentor(Mentor mentor) {
-        if(mentorRepository.findById(mentor.getMentorId()).isPresent())
+        if(mentorRepository.findById((long) mentor.getMentorId()).isPresent())
             return mentorRepository.save(mentor);
         else
             return null;

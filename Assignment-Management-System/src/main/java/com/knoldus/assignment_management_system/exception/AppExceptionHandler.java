@@ -9,14 +9,31 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 
+/**
+ * Global exception handler for the application.
+ */
 @ControllerAdvice
 public class AppExceptionHandler extends ResponseEntityExceptionHandler {
+
+    /**
+     * Handles EmptyInputException and returns a ResponseEntity with an ApiError.
+     *
+     * @param emptyInputException the EmptyInputException to handle
+     * @return a ResponseEntity with an ApiError and HttpStatus.BAD_REQUEST
+     */
     @ExceptionHandler(EmptyInputException.class)
-    public ResponseEntity<Object> handleEmptyInput(EmptyInputException emptyInputException){
-        return new ResponseEntity<>(new ApiError(emptyInputException.getMessage(),HttpStatus.BAD_REQUEST, LocalDateTime.now()), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Object> handleEmptyInput(EmptyInputException emptyInputException) {
+        return new ResponseEntity<>(new ApiError(emptyInputException.getMessage(), HttpStatus.BAD_REQUEST, LocalDateTime.now()), HttpStatus.BAD_REQUEST);
     }
+
+    /**
+     * Handles NoSuchElementException and returns a ResponseEntity with an ApiError.
+     *
+     * @param elementException the NoSuchElementException to handle
+     * @return a ResponseEntity with an ApiError and HttpStatus.NOT_FOUND
+     */
     @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<Object> handleNoSuchElementException(NoSuchElementException elementException){
-        return new ResponseEntity<>(new ApiError(elementException.getMessage(), HttpStatus.NOT_FOUND,LocalDateTime.now()), HttpStatus.NOT_FOUND);
+    public ResponseEntity<Object> handleNoSuchElementException(NoSuchElementException elementException) {
+        return new ResponseEntity<>(new ApiError(elementException.getMessage(), HttpStatus.NOT_FOUND, LocalDateTime.now()), HttpStatus.NOT_FOUND);
     }
 }

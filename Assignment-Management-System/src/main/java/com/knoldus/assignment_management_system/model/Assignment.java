@@ -10,12 +10,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Assignment {
-    private String Id;
+    private String id;
     private String technology;
     private String topic;
-    private String created_by;
-    private String assigned_to;
-    private List<Question> questions;
+    private String createdBy;
+    private String assignedTo;
+    private List<Questions> questions;
 
 
 }

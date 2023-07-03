@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Question {
+public class Questions {
     private Long id;
     private String question;
 }

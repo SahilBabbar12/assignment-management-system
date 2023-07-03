@@ -6,6 +6,7 @@ import com.knoldus.assignment_management_system.service.serviceimpl.AssignmentSe
 import com.knoldus.assignment_management_system.service.serviceimpl.MentorServiceImpl;
 import com.knoldus.assignment_management_system.service.serviceimpl.PublisherExample;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,10 @@ public class MentorController {
     private MentorServiceImpl mentorService;
     private AssignmentServiceImpl assignmentService;
 
+    @Value("${google.application.project-id}")
+    String projectId;
+    @Value("${google.application.topicId}")
+    String topicId;
     @Autowired
     public MentorController(MentorServiceImpl mentorService, AssignmentServiceImpl assignmentService) {
         this.mentorService = mentorService;
@@ -90,12 +95,11 @@ public class MentorController {
      * @throws ExecutionException       if an execution error occurs
      * @throws InterruptedException    if the execution is interrupted
      */
+
     @PostMapping("/create-document")
     public String createDocument(@RequestBody Assignment assignment) throws IOException, ExecutionException, InterruptedException {
         assignmentService.createUser(assignment);
         try {
-            String projectId = "nodal-descent-389716";
-            String topicId = "pub-sub-Topic";
             PublisherExample.publisherExample(projectId, topicId, "Assignment published ss");
             return "Message published successfully!";
         } catch (InterruptedException e) {

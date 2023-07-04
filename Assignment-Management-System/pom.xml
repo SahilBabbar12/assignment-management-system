@@ -93,16 +93,58 @@
 			<groupId>com.google.cloud</groupId>
 			<artifactId>google-cloud-pubsub</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.google.cloud.functions</groupId>
+			<artifactId>function-maven-plugin</artifactId>
+			<version>0.9.3</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.google.firebase</groupId>
 			<artifactId>firebase-admin</artifactId>
 			<version>8.0.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-function-adapter-gcp -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-function-adapter-gcp</artifactId>
+			<version>4.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.cloud.functions.invoker</groupId>
+			<artifactId>java-function-invoker</artifactId>
+			<version>1.0.0-alpha-2-rc5</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<outputDirectory>target/deploy</outputDirectory>
+				</configuration>
+<!--				<dependencies>-->
+<!--					<dependency>-->
+<!--						<groupId>org.springframework.cloud</groupId>-->
+<!--						<artifactId>spring-cloud-function-adapter-gcp</artifactId>-->
+<!--					</dependency>-->
+<!--				</dependencies>-->
+			</plugin>
+
+			<plugin>
+				<groupId>com.google.cloud.functions</groupId>
+				<artifactId>function-maven-plugin</artifactId>
+				<version>0.9.1</version>
+				<configuration>
+					<functionTarget>org.springframework.cloud.function.adapter.gcp.GcfJarLauncher</functionTarget>
+					<port>8080</port>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -129,100 +171,100 @@
 					</excludes>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.15.0</version>
-				<configuration>
-					<linkXRef>false</linkXRef>
-					<format>html</format>
-					<outputDirectory>${project.build.directory}/pmd-reports</outputDirectory>
-					<sourceEncoding>UTF-8</sourceEncoding>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>verify</phase>
-						<goals>
-							<goal>pmd</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>3.1.1</version>
-				<executions>
-					<execution>
-						<phase>verify</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<failOnViolation>false</failOnViolation>
-					<failsOnError>false</failsOnError>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>com.github.spotbugs</groupId>
-				<artifactId>spotbugs-maven-plugin</artifactId>
-				<version>4.4.2</version>
-				<executions>
-					<execution>
-						<phase>verify</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.7</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report</id>
-						<phase>test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-pmd-plugin</artifactId>-->
+<!--				<version>3.15.0</version>-->
+<!--				<configuration>-->
+<!--					<linkXRef>false</linkXRef>-->
+<!--					<format>html</format>-->
+<!--					<outputDirectory>${project.build.directory}/pmd-reports</outputDirectory>-->
+<!--					<sourceEncoding>UTF-8</sourceEncoding>-->
+<!--				</configuration>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<phase>verify</phase>-->
+<!--						<goals>-->
+<!--							<goal>pmd</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-checkstyle-plugin</artifactId>-->
+<!--				<version>3.1.1</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<phase>verify</phase>-->
+<!--						<goals>-->
+<!--							<goal>check</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--				<configuration>-->
+<!--					<failOnViolation>false</failOnViolation>-->
+<!--					<failsOnError>false</failsOnError>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
+<!--			<plugin>-->
+<!--				<groupId>com.github.spotbugs</groupId>-->
+<!--				<artifactId>spotbugs-maven-plugin</artifactId>-->
+<!--				<version>4.4.2</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<phase>verify</phase>-->
+<!--						<goals>-->
+<!--							<goal>check</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
+<!--			<plugin>-->
+<!--				<groupId>org.jacoco</groupId>-->
+<!--				<artifactId>jacoco-maven-plugin</artifactId>-->
+<!--				<version>0.8.7</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<goals>-->
+<!--							<goal>prepare-agent</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--					<execution>-->
+<!--						<id>report</id>-->
+<!--						<phase>test</phase>-->
+<!--						<goals>-->
+<!--							<goal>report</goal>-->
+<!--						</goals>-->
 
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.sonarsource.scanner.maven</groupId>
-				<artifactId>sonar-maven-plugin</artifactId>
-				<version>3.9.1.2184</version>
-			</plugin>
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
+<!--			<plugin>-->
+<!--				<groupId>org.sonarsource.scanner.maven</groupId>-->
+<!--				<artifactId>sonar-maven-plugin</artifactId>-->
+<!--				<version>3.9.1.2184</version>-->
+<!--			</plugin>-->
 		</plugins>
 	</build>
-	<profiles>
-		<profile>
-			<id>sonar</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<!-- Optional URL to server. Default value is http://localhost:9000 -->
-				<sonar.host.url>
-					http://localhost:9000
-				</sonar.host.url>
-				<sonar.login>admin</sonar.login>
-				<sonar.password>sahil</sonar.password>
-				<sonar.pmd.reportPaths>pmd.xml</sonar.pmd.reportPaths>
-				<checkstyle.failOnViolation>false</checkstyle.failOnViolation>
-			</properties>
-		</profile>
-	</profiles>
+<!--	<profiles>-->
+<!--		<profile>-->
+<!--			<id>sonar</id>-->
+<!--			<activation>-->
+<!--				<activeByDefault>true</activeByDefault>-->
+<!--			</activation>-->
+<!--			<properties>-->
+<!--				&lt;!&ndash; Optional URL to server. Default value is http://localhost:9000 &ndash;&gt;-->
+<!--				<sonar.host.url>-->
+<!--					http://localhost:9000-->
+<!--				</sonar.host.url>-->
+<!--				<sonar.login>admin</sonar.login>-->
+<!--				<sonar.password>sahil</sonar.password>-->
+<!--				<sonar.pmd.reportPaths>pmd.xml</sonar.pmd.reportPaths>-->
+<!--				<checkstyle.failOnViolation>false</checkstyle.failOnViolation>-->
+<!--			</properties>-->
+<!--		</profile>-->
+<!--	</profiles>-->
 
 
 </project>

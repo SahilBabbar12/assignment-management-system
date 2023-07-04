@@ -43,7 +43,7 @@ public class InternController {
      * @param intern the intern to be added
      * @return ResponseEntity containing the added intern
      */
-    @PostMapping("/insert-newIntern")
+    @PostMapping("/insert-intern")
     public ResponseEntity<Intern> addIntern(@RequestBody Intern intern) {
         return ResponseEntity.ok(internService.addNewIntern(intern));
     }

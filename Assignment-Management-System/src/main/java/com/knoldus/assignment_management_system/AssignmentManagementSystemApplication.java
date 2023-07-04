@@ -9,5 +9,4 @@ public class AssignmentManagementSystemApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AssignmentManagementSystemApplication.class, args);
 	}
-
 }

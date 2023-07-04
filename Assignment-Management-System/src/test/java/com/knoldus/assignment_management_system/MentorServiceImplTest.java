@@ -31,14 +31,14 @@ class MentorServiceImplTest {
     private Mentor mentor;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         MockitoAnnotations.initMocks(this);
         mentor = new Mentor(12L, "123", "java", LocalDateTime.now(), LocalDateTime.now());
 
     }
 
     @Test
-     void testAddMentorDetails(){
+    void testAddMentorDetails() {
         when(mentorRepository.save(mentor))
                 .thenReturn(mentor);
         Mentor saveRecords = mentorService.addMentorDetails(mentor);
@@ -46,7 +46,7 @@ class MentorServiceImplTest {
     }
 
     @Test
-    public void testGetMentors(){
+    public void testGetMentors() {
         List<Mentor> mentorList = new ArrayList<>();
         mentorList.add(mentor);
         mentorList.add(new Mentor(12L, "11", "java", LocalDateTime.now(), LocalDateTime.now()));
@@ -59,7 +59,7 @@ class MentorServiceImplTest {
     }
 
     @Test
-     void testDeleteExistingMentorById() {
+    void testDeleteExistingMentorById() {
         Long mentorId = 12L;
 
         when(mentorRepository.findById(mentorId))
@@ -76,7 +76,7 @@ class MentorServiceImplTest {
     }
 
     @Test
-     void testGetMentorDetailById(){
+    void testGetMentorDetailById() {
         Mentor mentorToGet = new Mentor(
                 12L, "12", "java", LocalDateTime.now(), LocalDateTime.now());
         when(mentorRepository.findById(anyLong()))

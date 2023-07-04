@@ -4,7 +4,7 @@ import com.knoldus.assignment_management_system.model.Assignment;
 import com.knoldus.assignment_management_system.model.Mentor;
 import com.knoldus.assignment_management_system.service.serviceimpl.AssignmentServiceImpl;
 import com.knoldus.assignment_management_system.service.serviceimpl.MentorServiceImpl;
-import com.knoldus.assignment_management_system.service.serviceimpl.PublisherExample;
+import com.knoldus.assignment_management_system.service.serviceimpl.AssignmentPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -70,7 +70,7 @@ public class MentorController {
      * @param id the ID of the mentor
      * @return ResponseEntity with the mentor details
      */
-    @GetMapping("/getMentor/{id}")
+    @GetMapping("/get-mentor/{id}")
     public ResponseEntity<Mentor> getMentorDetailById(@PathVariable Long id) {
         return ResponseEntity.ok(mentorService.getMentorDetail(id));
     }
@@ -81,7 +81,7 @@ public class MentorController {
      * @param mentor the mentor to be updated
      * @return ResponseEntity with the updated mentor
      */
-    @PutMapping("/updateMentor")
+    @PutMapping("/update-mentor")
     public ResponseEntity<Mentor> updateMentor(@RequestBody Mentor mentor) {
         return ResponseEntity.ok(mentorService.updateMentor(mentor));
     }
@@ -100,7 +100,7 @@ public class MentorController {
     public String createDocument(@RequestBody Assignment assignment) throws IOException, ExecutionException, InterruptedException {
         assignmentService.createUser(assignment);
         try {
-            PublisherExample.publisherExample(projectId, topicId, "Assignment published ss");
+            AssignmentPublisher.publishAssignment(projectId, topicId, "assignment has been published");
             return "Message published successfully!";
         } catch (InterruptedException e) {
             return "Error publishing message: " + e.getMessage();

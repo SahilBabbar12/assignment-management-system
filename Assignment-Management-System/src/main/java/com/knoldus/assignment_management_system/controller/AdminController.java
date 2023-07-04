@@ -21,7 +21,7 @@ public class AdminController {
      * @param kipKup the KipKup plan to be created
      * @return the created KipKup plan
      */
-    @PostMapping("/addKipKupPlan")
+    @PostMapping("/add-kip-kup-Plan")
     public KipKup createKipKupPlan(@RequestBody KipKup kipKup) {
         return adminService.createPlan(kipKup);
     }
@@ -32,7 +32,7 @@ public class AdminController {
      * @param kipKup the KipKup plan to be updated
      * @return the updated KipKup plan
      */
-    @PutMapping("/updateKipKupPlan")
+    @PutMapping("/update-kip-kup-plan")
     public KipKup updateKipKupPlan(@RequestBody KipKup kipKup) {
         return adminService.updatePlan(kipKup);
     }

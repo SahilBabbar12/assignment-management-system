@@ -14,32 +14,27 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
-public class PublisherExample {
+public class AssignmentPublisher {
 
-    private PublisherExample(){
+    private AssignmentPublisher(){
 
     }
-    public static void publisherExample(String projectId, String topicId, String message)
+    public static void publishAssignment(String projectId, String topicId, String message)
             throws IOException, ExecutionException, InterruptedException {
         TopicName topicName = TopicName.of(projectId, topicId);
 
         Publisher publisher = null;
         try {
-            // Create a publisher instance with default settings bound to the topic
             publisher = Publisher.newBuilder(topicName).build();
-
 
             ByteString data = ByteString.copyFromUtf8(message);
             PubsubMessage pubsubMessage = PubsubMessage.newBuilder().setData(data).build();
-
-            // Once published, returns a server-assigned message id (unique within the topic)
             ApiFuture<String> messageIdFuture = publisher.publish(pubsubMessage);
             String messageId = messageIdFuture.get();
             log.info("Published message ID: " + messageId);
 
         } finally {
             if (publisher != null) {
-                // When finished with the publisher, shutdown to free up resources.
                 publisher.shutdown();
                 publisher.awaitTermination(1, TimeUnit.MINUTES);
             }

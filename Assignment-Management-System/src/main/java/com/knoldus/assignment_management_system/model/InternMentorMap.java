@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.auditing.CurrentDateTimeProvider;
+
+
+import java.time.LocalDate;
 
 @Entity
 @AllArgsConstructor
@@ -15,9 +17,12 @@ public class InternMentorMap {
 
     @Id
     private Long intern;
+
     @Id
     private Long mentor;
-    private CurrentDateTimeProvider modifiedDate;
-    private CurrentDateTimeProvider createdDate;
+
+    private LocalDate modified_date= LocalDate.now();
+
+    private LocalDate created_date= LocalDate.now();
 
 }

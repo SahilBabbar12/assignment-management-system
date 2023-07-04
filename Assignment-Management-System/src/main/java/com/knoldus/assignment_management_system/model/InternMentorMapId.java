@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InternMentorMapId {
-    private Integer intern;
-    private Integer mentor;
+    private Long intern;
+    private Long mentor;
 }

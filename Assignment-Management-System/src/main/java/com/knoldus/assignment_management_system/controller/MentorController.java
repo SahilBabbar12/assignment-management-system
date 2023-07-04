@@ -2,9 +2,9 @@ package com.knoldus.assignment_management_system.controller;
 
 import com.knoldus.assignment_management_system.model.Assignment;
 import com.knoldus.assignment_management_system.model.Mentor;
+import com.knoldus.assignment_management_system.service.serviceimpl.AssignmentPublisher;
 import com.knoldus.assignment_management_system.service.serviceimpl.AssignmentServiceImpl;
 import com.knoldus.assignment_management_system.service.serviceimpl.MentorServiceImpl;
-import com.knoldus.assignment_management_system.service.serviceimpl.AssignmentPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +27,7 @@ public class MentorController {
     String projectId;
     @Value("${google.application.topicId}")
     String topicId;
+
     @Autowired
     public MentorController(MentorServiceImpl mentorService, AssignmentServiceImpl assignmentService) {
         this.mentorService = mentorService;
@@ -104,6 +105,20 @@ public class MentorController {
             return "Message published successfully!";
         } catch (InterruptedException e) {
             return "Error publishing message: " + e.getMessage();
+        }
+    }
+    @PutMapping("/update-document")
+    public String updateDocument(@RequestBody Assignment assignment) throws ExecutionException, InterruptedException {
+        assignmentService.updateAssignment(assignment);
+        try {
+            AssignmentPublisher.publishAssignment(projectId, topicId, "assignment has been updated");
+            return "Message published successfully!";
+        } catch (InterruptedException e) {
+            return "Error publishing message: " + e.getMessage();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
         }
     }
 }

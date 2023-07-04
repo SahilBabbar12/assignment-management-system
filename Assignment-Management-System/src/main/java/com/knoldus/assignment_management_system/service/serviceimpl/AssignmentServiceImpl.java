@@ -20,4 +20,8 @@ public class AssignmentServiceImpl {
     public void createUser(Assignment assignment) throws ExecutionException, InterruptedException {
         fireStoreService.addUser(assignment);
     }
+
+    public void updateAssignment(Assignment assignment) throws ExecutionException, InterruptedException {
+        fireStoreService.updateDocument(assignment);
+    }
 }

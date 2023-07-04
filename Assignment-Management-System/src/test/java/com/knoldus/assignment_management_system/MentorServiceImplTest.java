@@ -1,5 +1,6 @@
 package com.knoldus.assignment_management_system;
 
+
 import com.knoldus.assignment_management_system.dao.MentorRepository;
 import com.knoldus.assignment_management_system.model.Mentor;
 import com.knoldus.assignment_management_system.service.serviceimpl.MentorServiceImpl;
@@ -86,5 +87,23 @@ class MentorServiceImplTest {
         verify(mentorRepository).findById(12L);
         Assertions.assertEquals(mentorToGet, retrievedMentor);
 
+    }
+    @Test
+    public void testUpdateMentor_ExistingMentor_ReturnsUpdatedMentor() {
+        // Arrange
+
+        Mentor existingMentor = new Mentor(12L, "12", "java", LocalDateTime.now(), LocalDateTime.now());
+        Mentor updatedMentor = new Mentor(12L, "101", "java", LocalDateTime.now(), LocalDateTime.now());
+
+        Mockito.when(mentorRepository.findById(12L)).thenReturn(Optional.of(existingMentor));
+        Mockito.when(mentorRepository.save(updatedMentor)).thenReturn(updatedMentor);
+
+        // Act
+        Mentor result = mentorService.updateMentor(updatedMentor);
+
+        // Assert
+        Assertions.assertEquals(updatedMentor, result);
+        Mockito.verify(mentorRepository, Mockito.times(1)).findById(12L);
+        Mockito.verify(mentorRepository, Mockito.times(1)).save(updatedMentor);
     }
 }

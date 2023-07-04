@@ -32,6 +32,13 @@ public class InternServiceImplTest {
                 LocalDateTime.now(),LocalDateTime.now());
     }
     @Test
+    void testAddInternDetails(){
+        when(internRepository.save(intern))
+                .thenReturn(intern);
+        Intern saveRecords=internService.addNewIntern(intern);
+        Assertions.assertEquals(intern,saveRecords);
+    }
+    @Test
     public void testGetInterns(){
         List<Intern> internList=new ArrayList<>();
         internList.add(intern);
@@ -63,6 +70,26 @@ public class InternServiceImplTest {
         verify(internRepository).findById(11L);
         Assertions.assertEquals(interntoGet, retrievedIntern);
 
+    }
+    @Test
+    public void testUpdateMentor_ExistingMentor_ReturnsUpdatedMentor() {
+        // Arrange
+
+        Intern existingIntern = new Intern(11L,102L,"rahul","kumar",
+                "java","azure", LocalDateTime.now(),LocalDateTime.now());
+        Intern updatedIntern = new Intern(11L,102L,"jasleen","kumar",
+                "java","azure", LocalDateTime.now(),LocalDateTime.now());
+
+        Mockito.when(internRepository.findById(12L)).thenReturn(Optional.of(existingIntern));
+        Mockito.when(internRepository.save(updatedIntern)).thenReturn(updatedIntern);
+
+        // Act
+        Intern result = internService.updateIntern(updatedIntern);
+
+        // Assert
+        Assertions.assertEquals(updatedIntern, result);
+        Mockito.verify(internRepository, Mockito.times(1)).findById(12L);
+        Mockito.verify(internRepository, Mockito.times(1)).save(updatedIntern);
     }
 
 }

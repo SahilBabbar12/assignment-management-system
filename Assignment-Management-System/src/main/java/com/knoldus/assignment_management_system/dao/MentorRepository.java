@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
  * Repository interface for accessing and manipulating Mentor data.
  */
 @Repository
-public interface MentorRepository extends JpaRepository<Mentor, Long> {
+public interface MentorRepository extends
+        JpaRepository<Mentor, Long> {
 
 }

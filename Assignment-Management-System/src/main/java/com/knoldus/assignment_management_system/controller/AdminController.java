@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class AdminController {
 
+    /**
+     * The implementation of the AdminService.
+     */
     @Autowired
-    AdminServiceImpl adminService;
+    private AdminServiceImpl adminService;
 
     /**
      * Creates a new KipKup plan.
@@ -22,7 +25,7 @@ public class AdminController {
      * @return the created KipKup plan
      */
     @PostMapping("/add-kip-kup-Plan")
-    public KipKup createKipKupPlan(@RequestBody KipKup kipKup) {
+    public KipKup createKipKupPlan(@RequestBody final KipKup kipKup) {
         return adminService.createPlan(kipKup);
     }
 
@@ -33,7 +36,7 @@ public class AdminController {
      * @return the updated KipKup plan
      */
     @PutMapping("/update-kip-kup-plan")
-    public KipKup updateKipKupPlan(@RequestBody KipKup kipKup) {
+    public KipKup updateKipKupPlan(@RequestBody final KipKup kipKup) {
         return adminService.updatePlan(kipKup);
     }
 
@@ -44,7 +47,8 @@ public class AdminController {
      * @return the updated InternMentorMap object
      */
     @PostMapping("assign-mentor-intern")
-    public InternMentorMap addDetail(@RequestBody InternMentorMap internMentorMap) {
+    public InternMentorMap addDetail(
+            @RequestBody final InternMentorMap internMentorMap) {
         return adminService.addInternMentor(internMentorMap);
     }
 }

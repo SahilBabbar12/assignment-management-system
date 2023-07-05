@@ -47,11 +47,11 @@ public class AssignmentServiceImplTest {
         questions.add(question2);
         assignment.setQuestions(questions);
 
-        doNothing().when(fireStoreServiceMock).addUser(any(Assignment.class));
+        doNothing().when(fireStoreServiceMock).addAssignment(any(Assignment.class));
 
         assignmentService.createUser(assignment);
 
-        verify(fireStoreServiceMock).addUser(assignment);
+        verify(fireStoreServiceMock).addAssignment(assignment);
     }
 }
 

@@ -51,7 +51,7 @@ public class FireStoreServiceImplTest {
         when(documentReferenceMock.set(ArgumentMatchers.any(Assignment.class))).thenReturn(apiFutureMock);
         when(apiFutureMock.get()).thenReturn(writeResultMock);
 
-        fireStoreService.addUser(assignment);
+        fireStoreService.addAssignment(assignment);
 
         verify(fireStoreMock).collection("users");
         verify(collectionReferenceMock).document(anyString());

@@ -1,6 +1,7 @@
 package com.knoldus.assignment_management_system;
 
 import com.knoldus.assignment_management_system.dao.InternRepository;
+import com.knoldus.assignment_management_system.exception.NoSuchElementException;
 import com.knoldus.assignment_management_system.model.Intern;
 import com.knoldus.assignment_management_system.service.serviceimpl.InternServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -80,7 +81,7 @@ public class InternServiceImplTest {
         Intern updatedIntern = new Intern(11L,102L,"jasleen","kumar",
                 "java","azure", LocalDateTime.now(),LocalDateTime.now());
 
-        Mockito.when(internRepository.findById(12L)).thenReturn(Optional.of(existingIntern));
+        Mockito.when(internRepository.findById(11L)).thenReturn(Optional.of(existingIntern));
         Mockito.when(internRepository.save(updatedIntern)).thenReturn(updatedIntern);
 
         // Act
@@ -88,7 +89,7 @@ public class InternServiceImplTest {
 
         // Assert
         Assertions.assertEquals(updatedIntern, result);
-        Mockito.verify(internRepository, Mockito.times(1)).findById(12L);
+        Mockito.verify(internRepository, Mockito.times(1)).findById(11L);
         Mockito.verify(internRepository, Mockito.times(1)).save(updatedIntern);
     }
 

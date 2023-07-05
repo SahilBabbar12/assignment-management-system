@@ -12,9 +12,11 @@ import java.util.List;
 
 @Service
 public class InternServiceImpl implements InternService {
-
+    /**
+     * The repository for internRepository.
+     */
     @Autowired
-    InternRepository internRepository;
+    private InternRepository internRepository;
 
     /**
      * Retrieves all the interns.
@@ -34,11 +36,12 @@ public class InternServiceImpl implements InternService {
      * @throws EmptyInputException if the input fields are empty
      */
     @Override
-    public Intern addNewIntern(Intern intern) {
-        if (intern.getFirstName().isEmpty())
+    public Intern addNewIntern(final Intern intern) {
+        if (intern.getFirstName().isEmpty()) {
             throw new EmptyInputException("Input fields are empty");
-        else
+        } else {
             return internRepository.save(intern);
+        }
     }
 
     /**
@@ -49,8 +52,10 @@ public class InternServiceImpl implements InternService {
      * @throws NoSuchElementException if no intern is found with the given ID
      */
     @Override
-    public Intern getInternDetail(Long id) {
-        return internRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No Intern Found"));
+    public Intern getInternDetail(
+            final Long id) {
+        return internRepository.findById(id).orElseThrow(
+                () -> new NoSuchElementException("No Intern Found"));
     }
 
     /**
@@ -60,11 +65,13 @@ public class InternServiceImpl implements InternService {
      * @return the updated intern
      */
     @Override
-    public Intern updateIntern(Intern intern) {
-        if (internRepository.findById(intern.getId()).isPresent())
+    public Intern updateIntern(final Intern intern) {
+        if (internRepository.findById(intern.getId()).isPresent()) {
             return internRepository.save(intern);
-        else
-            return null;
+        } else {
+            throw new NoSuchElementException("Intern not found");
+        }
+
     }
 
     /**
@@ -74,11 +81,12 @@ public class InternServiceImpl implements InternService {
      * @return a status message indicating the result of the deletion
      */
     @Override
-    public String deleteIntern(Long id) {
+    public String deleteIntern(final Long id) {
         if (internRepository.findById(id).isPresent()) {
             internRepository.deleteById(id);
             return "Intern with ID " + id + " deleted successfully";
-        } else
-            return "Intern not found";
+        } else {
+            throw new NoSuchElementException("Intern not found");
+        }
     }
 }

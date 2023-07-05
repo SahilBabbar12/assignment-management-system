@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
  * Repository interface for accessing and manipulating KipKup data.
  */
 @Repository
-public interface KipKupRepository extends JpaRepository<KipKup, Long> {
+public interface KipKupRepository extends
+        JpaRepository<KipKup, Long> {
 
 }

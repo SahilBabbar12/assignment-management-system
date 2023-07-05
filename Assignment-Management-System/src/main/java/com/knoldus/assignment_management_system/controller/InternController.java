@@ -13,8 +13,12 @@ import java.util.List;
  */
 @RestController
 public class InternController {
+
+    /**
+     * The implementation of the InternService.
+     */
     @Autowired
-    InternService internService;
+    private InternService internService;
 
     /**
      * Retrieves a list of all interns.
@@ -33,7 +37,7 @@ public class InternController {
      * @return ResponseEntity containing the intern details
      */
     @GetMapping("/intern-detail/{id}")
-    public ResponseEntity<Intern> getIntern(@PathVariable Long id) {
+    public ResponseEntity<Intern> getIntern(@PathVariable final Long id) {
         return ResponseEntity.ok(internService.getInternDetail(id));
     }
 
@@ -44,7 +48,7 @@ public class InternController {
      * @return ResponseEntity containing the added intern
      */
     @PostMapping("/insert-intern")
-    public ResponseEntity<Intern> addIntern(@RequestBody Intern intern) {
+    public ResponseEntity<Intern> addIntern(@RequestBody final Intern intern) {
         return ResponseEntity.ok(internService.addNewIntern(intern));
     }
 
@@ -55,7 +59,8 @@ public class InternController {
      * @return ResponseEntity containing the updated intern
      */
     @PutMapping("/update-intern/{id}")
-    public ResponseEntity<Intern> updateIntern(@RequestBody Intern intern) {
+    public ResponseEntity<Intern> updateIntern(
+            @RequestBody final Intern intern) {
         return ResponseEntity.ok(internService.updateIntern(intern));
     }
 
@@ -66,7 +71,7 @@ public class InternController {
      * @return ResponseEntity containing a success message
      */
     @DeleteMapping("delete-intern/{id}")
-    public ResponseEntity<String> deleteIntern(@PathVariable Long id) {
+    public ResponseEntity<String> deleteIntern(@PathVariable final Long id) {
         return ResponseEntity.ok(internService.deleteIntern(id));
     }
 }

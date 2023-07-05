@@ -10,7 +10,7 @@ public class EmptyInputException extends RuntimeException {
      *
      * @param message the detail message
      */
-    public EmptyInputException(String message) {
+    public EmptyInputException(final String message) {
         super(message);
     }
 }

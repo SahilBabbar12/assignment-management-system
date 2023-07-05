@@ -39,5 +39,6 @@ public interface AdminService {
      * @param mentorId        the ID of the new Mentor
      * @return the updated Intern-Mentor mapping
      */
-    InternMentorMap updateInternMentor(InternMentorMap internMentorMap, Long mentorId);
+    InternMentorMap updateInternMentor(InternMentorMap internMentorMap,
+                                       Long mentorId);
 }

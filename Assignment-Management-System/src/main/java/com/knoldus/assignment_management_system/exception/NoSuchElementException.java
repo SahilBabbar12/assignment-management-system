@@ -10,7 +10,7 @@ public class NoSuchElementException extends RuntimeException {
      *
      * @param message the detail message
      */
-    public NoSuchElementException(String message) {
+    public NoSuchElementException(final String message) {
         super(message);
     }
 }

@@ -6,9 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Repository interface for accessing and manipulating Intern-Mentor mapping data.
+ * Repository interface for accessing and
+ * manipulating Intern-Mentor mapping data.
  */
 @Repository
-public interface InternMentorRepository extends JpaRepository<InternMentorMap, InternMentorMapId> {
+public interface InternMentorRepository extends
+        JpaRepository<InternMentorMap, InternMentorMapId> {
 
 }

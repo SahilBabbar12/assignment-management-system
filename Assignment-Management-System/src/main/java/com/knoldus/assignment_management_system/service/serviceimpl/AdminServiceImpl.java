@@ -14,14 +14,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdminServiceImpl implements AdminService {
 
+    /**
+     * The repository for KipKup entities.
+     */
     @Autowired
     private KipKupRepository kipKupRepository;
+
+    /**
+     * The repository for Intern entities.
+     */
     @Autowired
-    InternRepository internRepository;
+    private InternRepository internRepository;
+
+    /**
+     * The repository for Mentor entities.
+     */
     @Autowired
-    MentorRepository mentorRepository;
+    private MentorRepository mentorRepository;
+
+    /**
+     * The repository for InternMentor entities.
+     */
     @Autowired
-    InternMentorRepository internMentorRepository;
+    private InternMentorRepository internMentorRepository;
 
     /**
      * Creates a KipKup plan.
@@ -30,7 +45,7 @@ public class AdminServiceImpl implements AdminService {
      * @return the created KipKup plan
      */
     @Override
-    public KipKup createPlan(KipKup kipKupPlan) {
+    public KipKup createPlan(final KipKup kipKupPlan) {
         return kipKupRepository.save(kipKupPlan);
     }
 
@@ -41,11 +56,12 @@ public class AdminServiceImpl implements AdminService {
      * @return the updated KipKup plan
      */
     @Override
-    public KipKup updatePlan(KipKup kipKupPlan) {
-        if (kipKupRepository.findById(kipKupPlan.getSessionId()).isPresent())
+    public KipKup updatePlan(final KipKup kipKupPlan) {
+        if (kipKupRepository.findById(kipKupPlan.getSessionId()).isPresent()) {
             return kipKupRepository.save(kipKupPlan);
-        else
-            return null;
+        } else {
+            throw new NoSuchElementException("plan not found");
+        }
     }
 
     /**
@@ -56,11 +72,13 @@ public class AdminServiceImpl implements AdminService {
      * @throws NoSuchElementException if the Intern or Mentor does not exist
      */
     @Override
-    public InternMentorMap addInternMentor(InternMentorMap internMentorMap) {
-        if (internRepository.existsById(internMentorMap.getIntern()) && mentorRepository.existsById(internMentorMap.getMentor())) {
+    public InternMentorMap addInternMentor(
+            final InternMentorMap internMentorMap) {
+        if (internRepository.existsById(internMentorMap.getIntern())
+                && mentorRepository.existsById(internMentorMap.getMentor())) {
             return internMentorRepository.save(internMentorMap);
         } else {
-            throw new NoSuchElementException("Resource not found");
+            throw new NoSuchElementException("plan not found");
         }
     }
 
@@ -73,12 +91,14 @@ public class AdminServiceImpl implements AdminService {
      * @throws NoSuchElementException if the Intern does not exist
      */
     @Override
-    public InternMentorMap updateInternMentor(InternMentorMap internMentorMap, Long mentorId) {
+    public InternMentorMap updateInternMentor(
+            final InternMentorMap internMentorMap,
+                                              final Long mentorId) {
         if (internMentorMap.getIntern() != null) {
             internMentorMap.setMentor(mentorId);
             return internMentorRepository.save(internMentorMap);
         } else {
-            throw new NoSuchElementException("Resource not found");
+            throw new NoSuchElementException("intern not found");
         }
     }
 }
